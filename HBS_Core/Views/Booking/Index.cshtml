@@ -1,0 +1,209 @@
+﻿@model IEnumerable<BOL.Data.Booking>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Dashboard For Booking</h1>
+
+<div class="container">
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a asp-action="index" class="nav-link active"  aria-selected="true" role="tab">Booking</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a  asp-controller="Gust" asp-action="index" class="nav-link"  aria-selected="false" tabindex="-1" role="tab">Guest</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a asp-controller="Room" asp-action="index" class="nav-link" aria-selected="false" tabindex="-1" role="tab">Rooms</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a asp-controller="RoomClass" asp-action="index" class="nav-link" aria-selected="false" tabindex="-1" role="tab">Room Classes</a>
+        </li>
+    </ul>
+</div>
+
+
+
+<form>
+
+    <main>
+
+
+        <h2 class="display-6 text-center mb-4">Dashboard For Booking</h2>
+        <button asp-action="create" type="submit" class=" btn btn-lg btn-primary">Add Booking</button>
+        <button asp-action="Details" type="submit" class=" btn btn-lg btn-info">Booking Details</button>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Booking Date</th>
+                    <th scope="col">Check-in</th>
+                    <th scope="col">Check-out</th>
+                    <th scope="col">Range of days</th>
+                    <th scope="col">Gust</th>
+                    <th scope="col">Room</th>
+                    <th scope="col">Staff booked</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <th scope="row">@item.Id</th>
+                        <td>@item.BookingDate</td>
+                        <td>@item.CheckIn</td>
+                        <td>@item.CheckOut</td>
+                        <td>@item.DateRange</td>
+                        <td>@item.Gust.Name</td>
+                        <td>@item.Room.Descrption</td>
+                        <td>@item.Staff.Name</td>
+                    </tr>
+                }
+                @*<tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>Thornton</td>
+
+                </tr>
+                <tr>
+                <th scope="row">3</th>
+                <td colspan="1">Larry</td>
+                <td colspan="1">Larry</td>
+                <td colspan="2">Larry</td>
+
+
+                </tr>*@
+            </tbody>
+        </table>
+
+
+
+
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">Guest</h4>
+                    </div>
+                    <div class="card-body">
+
+                        @*<ul class="list-unstyled mt-3 mb-4">*@
+                                    <table>
+                                        <tr>
+                                            
+                                            <th>
+                                                Name
+                                            </th>
+                                            <th>
+                                                phone
+                                            </th>
+                                            <th>
+                                                status
+                                            </th>
+                                            
+                                        </tr>
+                            @foreach (var item in ViewBag.gust)
+                            {
+
+                                @*<li>*@
+                                        <tr>
+                                            <td>
+                                                @item.Name
+                                            </td>
+                                            <td>
+                                                @item.Phone
+                                            </td>
+                                            <td>
+                                                @item.Status
+                                            </td>
+
+                                        </tr>
+
+                                @*</li>*@
+                            }
+                                    </table>
+                        @*</ul>*@
+                        <button asp-controller="Gust" asp-action="create" type="submit" class="w-100 btn btn-lg btn-primary">Add Guest</button>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">Rooms</h4>
+                    </div>
+                    <div class="card-body">
+                        
+                        <ul class="list-unstyled mt-3 mb-4">
+                            @foreach (var item in ViewBag.room)
+                            {
+
+                                    <li>
+                                        <table>
+                                            <tr>
+
+                                                <th>
+                                                    Room
+                                                </th>
+                                                <th>
+                                                    Price
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                @item.Descrption
+                                                </td>
+                                                <td>
+                                                @item.Price
+                                                </td>
+                                            </tr>
+
+                                        </table>
+                                    </li>
+                            }
+                        </ul>
+                        <button asp-controller="Room" asp-action="create" type="submit" class="w-100 btn btn-lg btn-primary">Add Rooms</button>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">Room Classes</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mt-3 mb-4">
+                            @foreach (var item in ViewBag.roomclass)
+                            {
+
+                                <li>
+                                    <table>
+                                        <tr>
+
+                                            <th>
+                                                Name
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                @item.Name
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                </li>
+                            }
+                        </ul>
+                        <button asp-controller="RoomClass" asp-action="create" type="submit" class="w-100 btn btn-lg btn-primary">Add RoomClasses</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</form>
